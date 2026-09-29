@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List - Mayank.dev</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #121212;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background: #1e1e1e;
+      padding: 25px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #4caf50;
+    }
+
+    .input-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .input-box input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #2a2a2a;
+      color: #fff;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .input-box button {
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: none;
+      background: #4caf50;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    li {
+      background: #2a2a2a;
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      word-break: break-all;
+    }
+
+    /* जब टास्क पूरा हो जाएगा तो उस पर लाइन खींचेगी */
+    li.completed {
+      text-decoration: line-through;
+      color: #888;
+      background: #1a1a1a;
+    }
+
+    .delete-btn {
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>My Task Manager 📝</h2>
+    
+    <!-- Task Input Area -->
+    <div class="input-box">
+      <input type="text" id="taskInput" placeholder="Add a new task...">
+      <button id="addBtn">Add</button>
+    </div>
+
+    <!-- Tasks List Area -->
+    <ul id="taskList">
+      <!-- जावास्क्रिप्ट के ज़रिये यहाँ dynamic tasks जुड़ेंगे -->
+    </ul>
+  </div>
+  <script>
+  // Elements सेलेक्ट किए
+  const taskInput = document.querySelector('#taskInput');
+  const addBtn = document.querySelector('#addBtn');
+  const taskList = document.querySelector('#taskList');
+
+  // 1. LocalStorage से पुराने टास्क लोड करने का फंक्शन
+  function loadTasks() {
+    const savedTasks = JSON.parse(localStorage.getItem('myTasks')) || [];
+    taskList.innerHTML = "";
+    
+    savedTasks.forEach(task => {
+      createTaskElement(task.text, task.completed);
+    });
+  }
+
+  // 2. DOM में HTML टास्क बनाने का हेल्पर फंक्शन
+  function createTaskElement(taskText, isCompleted = false) {
+    const li = document.createElement('li');
+    li.textContent = taskText;
+
+    if (isCompleted) {
+      li.classList.add('completed');
+    }
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.className = 'delete-btn';
+
+    li.appendChild(deleteBtn);
+    taskList.appendChild(li);
+  }
+
+  // 3. LocalStorage में वर्तमान टास्क लिस्ट को सेव करने का फंक्शन
+  function saveTasks() {
+    const tasks = [];
+    document.querySelectorAll('#taskList li').forEach(li => {
+      // Delete बटन का टेक्स्ट छोड़कर केवल टास्क का टेक्स्ट निकालना
+      const text = li.childNodes[0].textContent;
+      const completed = li.classList.contains('completed');
+      tasks.push({ text: text, completed: completed });
+    });
+
+    localStorage.setItem('myTasks', JSON.stringify(tasks));
+  }
+
+  // 4. नया टास्क जोड़ने का फंक्शन
+  function addTask() {
+    const taskText = taskInput.value.trim();
+
+    if (taskText === "") {
+      alert("Please enter a task!");
+      return;
+    }
+
+    createTaskElement(taskText);
+    saveTasks(); // LocalStorage में सेव किया
+
+    taskInput.value = "";
+  }
+
+  // Event Listeners
+  addBtn.addEventListener('click', addTask);
+
+  taskInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      addTask();
+    }
+  });
+
+  taskList.addEventListener('click', function(e) {
+    if (e.target.tagName === 'LI') {
+      e.target.classList.toggle('completed');
+      saveTasks(); // स्टेटस बदलने पर सेव किया
+    } else if (e.target.classList.contains('delete-btn')) {
+      e.target.parentElement.remove();
+      saveTasks(); // डिलीट करने पर सेव किया
+    }
+  });
+
+  // पेज ओपन होते ही पुराने टास्क लोड करो
+  loadTasks();
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page title</title>
+</head>
+<body>
+    
+</body>
+</html>
