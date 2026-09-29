@@ -1,212 +1,535 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>To-Do List - Mayank.dev</title>
+  <title>MAYANK.DEV | Portfolio & Playground</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
   <style>
+    :root {
+      --bg-color: #0b0f19;
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --primary-color: #00ffcc; /* Default Neon Color */
+      --glow-color: rgba(0, 255, 204, 0.35);
+      --text-color: #ffffff;
+      --text-muted: #a0a5b5;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
     }
-
+    
     body {
-      background: #121212;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       min-height: 100vh;
-      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
     }
 
-    .container {
-      background: #1e1e1e;
-      padding: 25px;
-      border-radius: 15px;
-      width: 100%;
-      max-width: 400px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    /* Background Light Blobs */
+    .blob {
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      filter: blur(120px);
+      border-radius: 50%;
+      z-index: -1;
+      opacity: 0.35;
+      animation: float 8s infinite alternate ease-in-out;
     }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #4caf50;
+    .blob-1 { top: 5%; left: 10%; background: var(--primary-color); }
+    .blob-2 { bottom: 20%; right: 10%; background: #ff007f; }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(40px, 40px) scale(1.15); }
     }
 
-    .input-box {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .input-box input {
-      flex: 1;
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid #333;
-      background: #2a2a2a;
-      color: #fff;
-      outline: none;
-      font-size: 15px;
-    }
-
-    .input-box button {
-      padding: 12px 18px;
-      border-radius: 8px;
-      border: none;
-      background: #4caf50;
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    ul {
-      list-style: none;
-    }
-
-    li {
-      background: #2a2a2a;
-      padding: 12px 15px;
-      border-radius: 8px;
-      margin-bottom: 10px;
+    /* Navbar */
+    .navbar {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      word-break: break-all;
+      padding: 18px 8%;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .logo { color: #ffffff; font-size: 22px; font-weight: 800; letter-spacing: 1px; }
+    .logo span { color: var(--primary-color); text-shadow: 0 0 10px var(--primary-color); transition: 0.3s; }
+    .nav-links { list-style: none; display: flex; gap: 25px; }
+    .nav-links a { 
+      color: var(--text-muted); 
+      text-decoration: none; 
+      font-size: 14px; 
+      font-weight: 600;
+      transition: all 0.3s ease; 
+    }
+    .nav-links a:hover { 
+      color: var(--primary-color); 
+      text-shadow: 0 0 8px var(--primary-color);
     }
 
-    /* जब टास्क पूरा हो जाएगा तो उस पर लाइन खींचेगी */
-    li.completed {
-      text-decoration: line-through;
-      color: #888;
-      background: #1a1a1a;
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px 20px;
+    }
+    
+    .hero h1 { 
+      font-size: 32px; 
+      font-weight: 800;
+      margin-bottom: 15px; 
+      letter-spacing: 1px;
+    }
+    .hero h1 span { 
+      color: var(--primary-color); 
+      text-shadow: 0 0 12px var(--glow-color);
+      transition: 0.3s;
+    }
+    .hero p { 
+      font-size: 15px; 
+      color: var(--text-muted); 
+      max-width: 550px; 
+      margin: 0 auto 20px auto; 
+      line-height: 1.6;
     }
 
-    .delete-btn {
-      background: #ff4d4d;
-      color: white;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 5px;
-      cursor: pointer;
+    /* Theme Picker Dots Bar */
+    .theme-picker {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 20px;
+      border-radius: 30px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      border: 1px solid var(--border-color);
+    }
+
+    .theme-label {
       font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
     }
+
+    .color-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid #fff;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .color-dot:hover { 
+      transform: scale(1.3); 
+    }
+
+    .cta-btn { 
+      background: var(--primary-color); 
+      color: #000; 
+      padding: 14px 32px; 
+      border: none; 
+      border-radius: 30px; 
+      font-size: 15px; 
+      font-weight: 700; 
+      cursor: pointer; 
+      box-shadow: 0 0 15px var(--glow-color);
+      transition: all 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 25px var(--primary-color);
+    }
+
+    /* Services & Skills Section */
+    .services-section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+    
+    .services-section h2 { 
+      font-size: 26px; 
+      color: #ffffff; 
+      margin-bottom: 30px; 
+      font-weight: 700;
+    }
+    
+    .services-container { 
+      display: flex; 
+      justify-content: center; 
+      flex-wrap: wrap; 
+      gap: 25px; 
+    }
+    
+    .service-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--primary-color);
+      border-radius: 16px;
+      padding: 25px;
+      width: 260px;
+      text-align: left;
+      transition: all 0.4s ease;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary-color);
+      box-shadow: 0 10px 25px var(--glow-color);
+    }
+
+    .service-card h3 { font-size: 19px; color: #ffffff; margin: 0 0 12px 0; }
+    .service-card p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; margin: 0; }
+
+    /* Projects Section */
+    .projects-section {
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .projects-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 25px;
+      width: 300px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-5px);
+      box-shadow: 0 0 20px var(--glow-color);
+    }
+
+    .project-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 18px;
+      background: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      border-radius: 8px;
+      text-decoration: none;
+      text-align: center;
+      font-weight: 600;
+      font-size: 13.5px;
+      transition: all 0.3s;
+    }
+
+    .project-btn:hover {
+      background: var(--primary-color);
+      color: #000;
+      box-shadow: 0 0 12px var(--primary-color);
+    }
+
+    /* Contact Section */
+    .contact-section {
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .contact-section h2 { font-size: 26px; color: #ffffff; margin-bottom: 8px; }
+    .contact-section p { font-size: 14px; color: var(--text-muted); margin-bottom: 30px; }
+    
+    .contact-form { 
+      max-width: 450px; 
+      margin: 0 auto; 
+      text-align: left; 
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: #dddddd; margin-bottom: 8px; }
+    
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 13.5px;
+      color: #ffffff;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    
+    .form-group input:focus, .form-group textarea:focus { 
+      border-color: var(--primary-color); 
+      box-shadow: 0 0 10px var(--glow-color);
+    }
+    
+    .submit-btn {
+      width: 100%;
+      background: var(--primary-color);
+      color: #000000;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 12px var(--glow-color);
+    }
+    
+    .submit-btn:hover { 
+      box-shadow: 0 0 20px var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    .footer {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 50px;
+      font-size: 13px;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .footer p { margin: 0 0 12px 0; }
+    .social-links { display: flex; justify-content: center; gap: 20px; }
+    .social-links a { 
+      color: var(--primary-color); 
+      text-decoration: none; 
+      font-weight: 600;
+      transition: all 0.3s ease; 
+    }
+    
+    .social-links a:hover { 
+      color: #ffffff; 
+      text-shadow: 0 0 8px var(--primary-color);
+    }
+
+    /* Typewriter Cursor */
+    .typewriter-text {
+      border-right: 2px solid var(--primary-color);
+      animation: blink 0.7s infinite;
+    }
+
+    @keyframes blink { 50% { border-color: transparent; } }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <h2>My Task Manager 📝</h2>
+  <!-- Background Light Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">MAYANK<span>.DEV</span></div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#skills">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>HI, I'M <span id="typing-name" class="typewriter-text"></span></h1>
+    <p>Frontend Web Developer in Progress. Building modern & responsive web applications.</p>
     
-    <!-- Task Input Area -->
-    <div class="input-box">
-      <input type="text" id="taskInput" placeholder="Add a new task...">
-      <button id="addBtn">Add</button>
+    <!-- Color Theme Switcher Bar -->
+    <div class="theme-picker">
+      <span class="theme-label">Accent Glow:</span>
+      <div class="color-dot" style="background: #00ffcc;" onclick="changeTheme('#00ffcc', 'rgba(0, 255, 204, 0.35)')"></div>
+      <div class="color-dot" style="background: #4CAF50;" onclick="changeTheme('#4CAF50', 'rgba(76, 175, 80, 0.4)')"></div>
+      <div class="color-dot" style="background: #ff007f;" onclick="changeTheme('#ff007f', 'rgba(255, 0, 127, 0.4)')"></div>
+      <div class="color-dot" style="background: #00bfff;" onclick="changeTheme('#00bfff', 'rgba(0, 191, 255, 0.4)')"></div>
+      <div class="color-dot" style="background: #ffcc00;" onclick="changeTheme('#ffcc00', 'rgba(255, 204, 0, 0.4)')"></div>
     </div>
 
-    <!-- Tasks List Area -->
-    <ul id="taskList">
-      <!-- जावास्क्रिप्ट के ज़रिये यहाँ dynamic tasks जुड़ेंगे -->
-    </ul>
-  </div>
+    <button class="cta-btn">View My Work 🚀</button>
+  </section>
+
+  <!-- Services / Skills Section -->
+  <section class="services-section" id="skills">
+    <h2>My Skills & Services 🛠️</h2>
+    <div class="services-container">
+      <div class="service-card">
+        <h3>HTML5 & CSS3</h3>
+        <p>वेबसाइट का लेआउट, स्ट्रक्चर और सुंदर आधुनिक डिजाइन बनाना।</p>
+      </div>
+      <div class="service-card">
+        <h3>Responsive Design</h3>
+        <p>वेबसाइट को मोबाइल, टैबलेट और लैपटॉप पर एकदम परफेक्ट दिखाना।</p>
+      </div>
+      <div class="service-card">
+        <h3>JavaScript</h3>
+        <p>वेबसाइट में लॉजिक, बटन एक्शन्स और डायनामिक इंटरएक्टिव फीचर्स जोड़ना।</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Showcase Section -->
+  <section class="projects-section" id="projects">
+    <h2>Live Projects 🚀</h2>
+    <div class="projects-container" style="margin-top: 20px;">
+      <div class="project-card">
+        <div>
+          <h3>Task Manager App 📝</h3>
+          <p style="color: var(--text-muted); font-size: 13.5px; margin-top: 8px; line-height: 1.5;">
+            Modern To-Do List web application built with HTML, CSS, & JS. Features task addition & responsive dark design.
+          </p>
+        </div>
+        <a href="https://kumarmayank97513-afk.github.io/my-todo-app/" target="_blank" class="project-btn">View Project ➔</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section" id="contact">
+    <h2>Get In Touch ✉️</h2>
+    <p>Contact me or send a message for your project</p>
+
+    <form class="contact-form">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="nameInput" placeholder="enter your name...">
+        <small id="nameError" style="color: #ff5252; display: block; margin-top: 5px;"></small>
+      </div>
+
+      <div class="form-group">
+        <label>Your Email</label>
+        <input type="text" id="emailInput" placeholder="enter your email...">
+        <small id="emailError" style="color: #ff5252; display: block; margin-top: 5px;"></small>
+      </div>
+
+      <div class="form-group">
+        <label>Message</label>
+        <textarea rows="4" placeholder="enter your message line..."></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Send Message 🚀</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2026 MAYANK.DEV | All Rights Reserved.</p>
+    <div class="social-links">
+      <a href="#">LinkedIn</a>
+      <a href="https://github.com/kumarmayank97513-afk" target="_blank">GitHub</a>
+      <a href="#">Twitter</a>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
   <script>
-  // Elements सेलेक्ट किए
-  const taskInput = document.querySelector('#taskInput');
-  const addBtn = document.querySelector('#addBtn');
-  const taskList = document.querySelector('#taskList');
-
-  // 1. LocalStorage से पुराने टास्क लोड करने का फंक्शन
-  function loadTasks() {
-    const savedTasks = JSON.parse(localStorage.getItem('myTasks')) || [];
-    taskList.innerHTML = "";
-    
-    savedTasks.forEach(task => {
-      createTaskElement(task.text, task.completed);
-    });
-  }
-
-  // 2. DOM में HTML टास्क बनाने का हेल्पर फंक्शन
-  function createTaskElement(taskText, isCompleted = false) {
-    const li = document.createElement('li');
-    li.textContent = taskText;
-
-    if (isCompleted) {
-      li.classList.add('completed');
+    // Live Color Theme Switcher Function
+    function changeTheme(mainColor, glowColor) {
+      document.documentElement.style.setProperty('--primary-color', mainColor);
+      document.documentElement.style.setProperty('--glow-color', glowColor);
     }
 
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.className = 'delete-btn';
+    // Form Validation Logic
+    const contactForm = document.querySelector('.contact-form');
+    const nameInput = document.querySelector('#nameInput');
+    const emailInput = document.querySelector('#emailInput');
+    const nameError = document.querySelector('#nameError');
+    const emailError = document.querySelector('#emailError');
 
-    li.appendChild(deleteBtn);
-    taskList.appendChild(li);
-  }
+    contactForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      let isValid = true;
 
-  // 3. LocalStorage में वर्तमान टास्क लिस्ट को सेव करने का फंक्शन
-  function saveTasks() {
-    const tasks = [];
-    document.querySelectorAll('#taskList li').forEach(li => {
-      // Delete बटन का टेक्स्ट छोड़कर केवल टास्क का टेक्स्ट निकालना
-      const text = li.childNodes[0].textContent;
-      const completed = li.classList.contains('completed');
-      tasks.push({ text: text, completed: completed });
+      if (nameInput.value.trim() === "") {
+        nameError.textContent = "Please enter your name!";
+        nameInput.style.border = "1.5px solid #ff5252";
+        isValid = false;
+      }
+
+      if (emailInput.value.trim() === "") {
+        emailError.textContent = "Please enter your email!";
+        emailInput.style.border = "1.5px solid #ff5252";
+        isValid = false;
+      } else if (!emailInput.value.includes('@')) {
+        emailError.textContent = "Please include an '@' in the email address!";
+        emailInput.style.border = "1.5px solid #ff5252";
+        isValid = false;
+      }
+
+      if (isValid) {
+        alert("Form submitted successfully! 🎉");
+        contactForm.reset();
+      }
     });
 
-    localStorage.setItem('myTasks', JSON.stringify(tasks));
-  }
+    nameInput.addEventListener('input', function() {
+      if (nameInput.value.trim() !== "") {
+        nameError.textContent = "";
+        nameInput.style.border = "1px solid var(--border-color)";
+      }
+    });
 
-  // 4. नया टास्क जोड़ने का फंक्शन
-  function addTask() {
-    const taskText = taskInput.value.trim();
+    emailInput.addEventListener('input', function() {
+      if (emailInput.value.trim() !== "") {
+        emailError.textContent = "";
+        emailInput.style.border = "1px solid var(--border-color)";
+      }
+    });
 
-    if (taskText === "") {
-      alert("Please enter a task!");
-      return;
+    // Auto-Type Animation Effect
+    const textToType = "MAYANK KUMAR";
+    const typingElement = document.getElementById("typing-name");
+    let charIndex = 0;
+
+    function typeEffect() {
+      if (charIndex < textToType.length) {
+        typingElement.textContent += textToType.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeEffect, 150);
+      }
     }
 
-    createTaskElement(taskText);
-    saveTasks(); // LocalStorage में सेव किया
-
-    taskInput.value = "";
-  }
-
-  // Event Listeners
-  addBtn.addEventListener('click', addTask);
-
-  taskInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-      addTask();
-    }
-  });
-
-  taskList.addEventListener('click', function(e) {
-    if (e.target.tagName === 'LI') {
-      e.target.classList.toggle('completed');
-      saveTasks(); // स्टेटस बदलने पर सेव किया
-    } else if (e.target.classList.contains('delete-btn')) {
-      e.target.parentElement.remove();
-      saveTasks(); // डिलीट करने पर सेव किया
-    }
-  });
-
-  // पेज ओपन होते ही पुराने टास्क लोड करो
-  loadTasks();
-</script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Page title</title>
-</head>
-<body>
-    
+    window.onload = typeEffect;
+  </script>
 </body>
 </html>
