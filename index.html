@@ -43,11 +43,18 @@
     .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 600; transition: 0.3s; }
     .nav-links a:hover { color: var(--primary-color); text-shadow: 0 0 8px var(--primary-color); }
 
-    /* Hero */
-    .hero { text-align: center; padding: 60px 20px 40px 20px; }
-    .hero h1 { font-size: 32px; font-weight: 800; margin-bottom: 15px; }
+    /* Hero - Centered and Clean */
+    .hero { 
+      text-align: center; 
+      padding: 70px 20px 40px 20px; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center;
+    }
+    .hero h1 { font-size: 30px; font-weight: 800; margin-bottom: 15px; width: 100%; max-width: 700px; }
     .hero h1 span { color: var(--primary-color); text-shadow: 0 0 12px var(--glow-color); }
-    .hero p { font-size: 15px; color: var(--text-muted); max-width: 550px; margin: 0 auto 20px auto; }
+    .hero p { font-size: 15px; color: var(--text-muted); max-width: 500px; margin: 0 auto 25px auto; }
 
     /* Theme Picker */
     .theme-picker {
@@ -84,22 +91,58 @@
     }
     .project-btn:hover { background: var(--primary-color); color: #000; box-shadow: 0 0 12px var(--primary-color); }
 
-    /* Modal / Weather App Popup */
+    /* Modal Overlays */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
-      display: none; justify-content: center; align-items: center; z-index: 1000;
+      display: none; justify-content: center; align-items: center; z-index: 1000; padding: 15px;
     }
     .modal-box {
       background: #111827; border: 1px solid var(--primary-color); border-radius: 16px;
-      padding: 25px; width: 90%; max-width: 380px; box-shadow: 0 0 25px var(--glow-color); position: relative; text-align: center;
+      padding: 25px; width: 100%; max-width: 360px; box-shadow: 0 0 25px var(--glow-color); position: relative; text-align: center;
     }
     .close-modal { position: absolute; top: 15px; right: 20px; color: #fff; font-size: 24px; cursor: pointer; }
-    .weather-input-group { display: flex; gap: 8px; margin: 20px 0; }
-    .weather-input-group input { flex: 1; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: rgba(0,0,0,0.5); color: #fff; outline: none; }
-    .weather-input-group button { background: var(--primary-color); color: #000; border: none; padding: 10px 15px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+
+    /* Weather App Styles - Fixed Box and Input Width */
+    .weather-input-group { 
+      display: flex; 
+      gap: 8px; 
+      margin: 20px 0; 
+      width: 100%; 
+    }
+    .weather-input-group input { 
+      flex: 1; 
+      min-width: 0; 
+      padding: 10px; 
+      border-radius: 6px; 
+      border: 1px solid var(--border-color); 
+      background: rgba(0,0,0,0.5); 
+      color: #fff; 
+      outline: none; 
+      font-size: 14px;
+    }
+    .weather-input-group button { 
+      background: var(--primary-color); 
+      color: #000; 
+      border: none; 
+      padding: 10px 14px; 
+      border-radius: 6px; 
+      font-weight: 700; 
+      cursor: pointer; 
+      white-space: nowrap; 
+      font-size: 13px;
+    }
     .weather-display { margin-top: 15px; background: rgba(255, 255, 255, 0.03); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); }
     .temp-value { font-size: 32px; font-weight: 800; color: var(--primary-color); margin: 8px 0; }
+
+    /* Stopwatch Styles */
+    .stopwatch-display { font-size: 32px; font-weight: 800; color: var(--primary-color); margin: 20px 0; text-shadow: 0 0 10px var(--glow-color); letter-spacing: 2px; }
+    .stopwatch-buttons { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
+    .sw-btn { padding: 8px 12px; border-radius: 6px; font-weight: 600; border: none; cursor: pointer; font-size: 12px; transition: 0.2s; }
+    .btn-start { background: #4CAF50; color: #fff; }
+    .btn-stop { background: #ff5252; color: #fff; }
+    .btn-reset { background: #ff9800; color: #fff; }
+    .lap-list { list-style: none; max-height: 110px; overflow-y: auto; text-align: left; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; font-size: 13px; color: var(--text-muted); }
 
     /* Contact Section */
     .contact-section { padding: 40px 20px; text-align: center; }
@@ -134,7 +177,7 @@
     </ul>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero Section (Centered) -->
   <section class="hero">
     <h1>HI, I'M <span id="typing-name" class="typewriter-text"></span></h1>
     <p>Frontend Web Developer in Progress. Building modern & responsive web applications.</p>
@@ -173,6 +216,7 @@
   <section class="projects-section" id="projects">
     <h2>Live Projects 🚀</h2>
     <div class="projects-container">
+      <!-- Project 1: Weather App -->
       <div class="project-card">
         <div>
           <h3>Weather App 🌤️</h3>
@@ -181,6 +225,17 @@
           </p>
         </div>
         <button class="project-btn" onclick="openWeatherModal()">Launch App 🚀</button>
+      </div>
+
+      <!-- Project 2: Stopwatch App -->
+      <div class="project-card">
+        <div>
+          <h3>Stopwatch & Timer ⏱️</h3>
+          <p style="color: var(--text-muted); font-size: 13.5px; margin-top: 8px;">
+            Digital stopwatch with start, stop, reset, and lap time recording features.
+          </p>
+        </div>
+        <button class="project-btn" onclick="openStopwatchModal()">Launch App 🚀</button>
       </div>
     </div>
   </section>
@@ -191,7 +246,7 @@
       <span class="close-modal" onclick="closeWeatherModal()">&times;</span>
       <h3 style="color: var(--primary-color);">Weather Forecast 🌤️</h3>
       <div class="weather-input-group">
-        <input type="text" id="cityInput" placeholder="Enter city name (e.g. Delhi)">
+        <input type="text" id="cityInput" placeholder="Enter city (e.g. Delhi)">
         <button onclick="getWeather()">Search</button>
       </div>
       <div class="weather-display" id="weatherDisplay">
@@ -199,6 +254,24 @@
         <div class="temp-value" id="tempVal">28°C</div>
         <p id="weatherDesc" style="color: var(--text-muted); font-size: 14px;">Clear Sky</p>
       </div>
+    </div>
+  </div>
+
+  <!-- Stopwatch Modal Popup -->
+  <div class="modal-overlay" id="stopwatchModal">
+    <div class="modal-box">
+      <span class="close-modal" onclick="closeStopwatchModal()">&times;</span>
+      <h3 style="color: var(--primary-color);">Digital Stopwatch ⏱️</h3>
+      <div class="stopwatch-display" id="swDisplay">00:00:00</div>
+      <div class="stopwatch-buttons">
+        <button class="sw-btn btn-start" onclick="startStopwatch()">Start</button>
+        <button class="sw-btn btn-stop" onclick="stopStopwatch()">Stop</button>
+        <button class="sw-btn btn-reset" onclick="resetStopwatch()">Reset</button>
+        <button class="sw-btn" style="background:var(--primary-color); color:#000;" onclick="lapStopwatch()">Lap</button>
+      </div>
+      <ul class="lap-list" id="lapList">
+        <li style="color: #666; text-align: center;">No laps recorded yet</li>
+      </ul>
     </div>
   </div>
 
@@ -238,7 +311,7 @@
       document.documentElement.style.setProperty('--glow-color', glowColor);
     }
 
-    /* Modal Control */
+    /* Weather Modal Control */
     function openWeatherModal() { document.getElementById('weatherModal').style.display = 'flex'; }
     function closeWeatherModal() { document.getElementById('weatherModal').style.display = 'none'; }
 
@@ -266,6 +339,63 @@
         tempVal.textContent = "--";
         weatherDesc.textContent = "Please try another city";
       }
+    }
+
+    /* Stopwatch Modal Control */
+    function openStopwatchModal() { document.getElementById('stopwatchModal').style.display = 'flex'; }
+    function closeStopwatchModal() { document.getElementById('stopwatchModal').style.display = 'none'; }
+
+    /* Stopwatch Logic */
+    let seconds = 0, minutes = 0, hours = 0;
+    let timerInterval = null;
+
+    function updateStopwatchDisplay() {
+      let h = hours < 10 ? "0" + hours : hours;
+      let m = minutes < 10 ? "0" + minutes : minutes;
+      let s = seconds < 10 ? "0" + seconds : seconds;
+      document.getElementById('swDisplay').textContent = `${h}:${m}:${s}`;
+    }
+
+    function startStopwatch() {
+      if (timerInterval !== null) return;
+      timerInterval = setInterval(() => {
+        seconds++;
+        if (seconds === 60) {
+          seconds = 0;
+          minutes++;
+          if (minutes === 60) {
+            minutes = 0;
+            hours++;
+          }
+        }
+        updateStopwatchDisplay();
+      }, 1000);
+    }
+
+    function stopStopwatch() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    function resetStopwatch() {
+      stopStopwatch();
+      seconds = 0; minutes = 0; hours = 0;
+      updateStopwatchDisplay();
+      document.getElementById('lapList').innerHTML = `<li style="color: #666; text-align: center;">No laps recorded yet</li>`;
+    }
+
+    function lapStopwatch() {
+      if (timerInterval === null) return;
+      const lapList = document.getElementById('lapList');
+      if (lapList.innerHTML.includes("No laps")) {
+        lapList.innerHTML = "";
+      }
+      let currentVal = document.getElementById('swDisplay').textContent;
+      const li = document.createElement('li');
+      li.style.padding = "4px 0";
+      li.style.borderBottom = "1px solid rgba(255,255,255,0.05)";
+      li.textContent = `Lap: ${currentVal}`;
+      lapList.prepend(li);
     }
 
     /* Typewriter Effect */
