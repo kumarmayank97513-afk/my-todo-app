@@ -18,9 +18,8 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-    body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; overflow-x: hidden; position: relative; }
+    body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; overflow-x: hidden; position: relative; text-align: center; }
 
-    /* Animated Background Blobs */
     .blob { position: absolute; width: 280px; height: 280px; filter: blur(120px); border-radius: 50%; z-index: -1; opacity: 0.35; animation: float 8s infinite alternate ease-in-out; }
     .blob-1 { top: 5%; left: 10%; background: var(--primary-color); }
     .blob-2 { bottom: 20%; right: 10%; background: #ff007f; }
@@ -30,68 +29,55 @@
       100% { transform: translate(40px, 40px) scale(1.15); }
     }
 
-    /* Navbar */
     .navbar {
       background: rgba(15, 23, 42, 0.7);
       backdrop-filter: blur(12px);
       display: flex; justify-content: space-between; align-items: center;
-      padding: 18px 8%; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border-color);
+      padding: 18px 5%; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border-color);
     }
-    .logo { color: #ffffff; font-size: 22px; font-weight: 800; letter-spacing: 1px; }
-    .logo span { color: var(--primary-color); text-shadow: 0 0 10px var(--primary-color); transition: 0.3s; }
-    .nav-links { list-style: none; display: flex; gap: 25px; }
-    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 600; transition: 0.3s; }
-    .nav-links a:hover { color: var(--primary-color); text-shadow: 0 0 8px var(--primary-color); }
+    .logo { color: #ffffff; font-size: 20px; font-weight: 800; letter-spacing: 1px; }
+    .logo span { color: var(--primary-color); text-shadow: 0 0 10px var(--primary-color); }
+    .nav-links { list-style: none; display: flex; gap: 15px; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 600; }
+    .nav-links a:hover { color: var(--primary-color); }
 
-    /* Hero - Centered and Clean */
     .hero { 
-      text-align: center; 
-      padding: 70px 20px 40px 20px; 
-      display: flex; 
-      flex-direction: column; 
-      align-items: center; 
-      justify-content: center;
+      padding: 60px 15px 30px 15px; 
+      display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;
     }
-    .hero h1 { font-size: 30px; font-weight: 800; margin-bottom: 15px; width: 100%; max-width: 700px; }
-    .hero h1 span { color: var(--primary-color); text-shadow: 0 0 12px var(--glow-color); }
-    .hero p { font-size: 15px; color: var(--text-muted); max-width: 500px; margin: 0 auto 25px auto; }
+    .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 12px; width: 100%; }
+    .hero h1 span { color: var(--primary-color); text-shadow: 0 0 12px var(--glow-color); display: inline-block; word-break: break-word; }
+    .hero p { font-size: 14px; color: var(--text-muted); max-width: 400px; margin: 0 auto 20px auto; padding: 0 10px; }
 
-    /* Theme Picker */
     .theme-picker {
-      display: flex; justify-content: center; align-items: center; gap: 15px;
-      margin: 0 auto 25px auto; background: rgba(255, 255, 255, 0.03);
-      padding: 10px 20px; border-radius: 30px; width: fit-content; border: 1px solid var(--border-color);
+      display: flex; justify-content: center; align-items: center; gap: 12px;
+      margin: 0 auto 20px auto; background: rgba(255, 255, 255, 0.03);
+      padding: 8px 16px; border-radius: 30px; width: fit-content; border: 1px solid var(--border-color);
     }
-    .color-dot { width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid #fff; transition: 0.2s; }
+    .color-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid #fff; transition: 0.2s; }
     .color-dot:hover { transform: scale(1.3); }
 
-    .cta-btn { background: var(--primary-color); color: #000; padding: 14px 32px; border: none; border-radius: 30px; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 0 15px var(--glow-color); transition: 0.3s; }
-    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 0 25px var(--primary-color); }
-
-    /* Services */
-    .services-section { padding: 40px 20px; text-align: center; }
-    .services-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 25px; }
+    .cta-btn { background: var(--primary-color); color: #000; padding: 12px 28px; border: none; border-radius: 30px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 0 15px var(--glow-color); }
+    
+    .services-section { padding: 30px 15px; text-align: center; width: 100%; }
+    .services-container { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
     .service-card {
       background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--border-color);
-      border-left: 4px solid var(--primary-color); border-radius: 16px; padding: 25px; width: 260px; text-align: left; transition: 0.4s;
+      border-left: 4px solid var(--primary-color); border-radius: 16px; padding: 20px; width: 90%; max-width: 340px; text-align: left;
     }
-    .service-card:hover { transform: translateY(-8px); border-color: var(--primary-color); box-shadow: 0 10px 25px var(--glow-color); }
 
-    /* Projects Section */
-    .projects-section { padding: 40px 20px; text-align: center; }
-    .projects-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 25px; max-width: 900px; margin: 20px auto 0 auto; }
+    .projects-section { padding: 30px 15px; text-align: center; width: 100%; }
+    .projects-container { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
     .project-card {
       background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--border-color);
-      border-radius: 16px; padding: 25px; width: 300px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s;
+      border-radius: 16px; padding: 20px; width: 90%; max-width: 340px; text-align: left; display: flex; flex-direction: column; justify-content: space-between;
     }
-    .project-card:hover { border-color: var(--primary-color); transform: translateY(-5px); box-shadow: 0 0 20px var(--glow-color); }
     .project-btn {
-      display: inline-block; margin-top: 15px; padding: 10px 18px; background: transparent;
-      color: var(--primary-color); border: 1px solid var(--primary-color); border-radius: 8px; text-align: center; font-weight: 600; cursor: pointer; transition: 0.3s;
+      display: block; width: 100%; margin-top: 15px; padding: 10px; background: transparent;
+      color: var(--primary-color); border: 1px solid var(--primary-color); border-radius: 8px; text-align: center; font-weight: 600; cursor: pointer;
     }
-    .project-btn:hover { background: var(--primary-color); color: #000; box-shadow: 0 0 12px var(--primary-color); }
+    .project-btn:hover { background: var(--primary-color); color: #000; }
 
-    /* Modal Overlays */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
@@ -99,91 +85,80 @@
     }
     .modal-box {
       background: #111827; border: 1px solid var(--primary-color); border-radius: 16px;
-      padding: 25px; width: 100%; max-width: 360px; box-shadow: 0 0 25px var(--glow-color); position: relative; text-align: center;
+      padding: 20px; width: 100%; max-width: 340px; box-shadow: 0 0 25px var(--glow-color); position: relative; text-align: center;
     }
-    .close-modal { position: absolute; top: 15px; right: 20px; color: #fff; font-size: 24px; cursor: pointer; }
+    .close-modal { position: absolute; top: 12px; right: 18px; color: #fff; font-size: 22px; cursor: pointer; }
 
-    /* Weather App Styles - Fixed Box and Input Width */
-    .weather-input-group { 
-      display: flex; 
-      gap: 8px; 
-      margin: 20px 0; 
-      width: 100%; 
-    }
-    .weather-input-group input { 
-      flex: 1; 
-      min-width: 0; 
-      padding: 10px; 
-      border-radius: 6px; 
-      border: 1px solid var(--border-color); 
-      background: rgba(0,0,0,0.5); 
-      color: #fff; 
-      outline: none; 
-      font-size: 14px;
-    }
-    .weather-input-group button { 
-      background: var(--primary-color); 
-      color: #000; 
-      border: none; 
-      padding: 10px 14px; 
-      border-radius: 6px; 
-      font-weight: 700; 
-      cursor: pointer; 
-      white-space: nowrap; 
-      font-size: 13px;
-    }
-    .weather-display { margin-top: 15px; background: rgba(255, 255, 255, 0.03); padding: 15px; border-radius: 12px; border: 1px solid var(--border-color); }
-    .temp-value { font-size: 32px; font-weight: 800; color: var(--primary-color); margin: 8px 0; }
+    .weather-input-group { display: flex; gap: 8px; margin: 15px 0; width: 100%; }
+    .weather-input-group input { flex: 1; min-width: 0; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: rgba(0,0,0,0.5); color: #fff; outline: none; font-size: 13px; }
+    .weather-input-group button { background: var(--primary-color); color: #000; border: none; padding: 10px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; white-space: nowrap; font-size: 12px; }
+    .weather-display { margin-top: 15px; background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 12px; border: 1px solid var(--border-color); }
+    .temp-value { font-size: 28px; font-weight: 800; color: var(--primary-color); margin: 6px 0; }
 
-    /* Stopwatch Styles */
-    .stopwatch-display { font-size: 32px; font-weight: 800; color: var(--primary-color); margin: 20px 0; text-shadow: 0 0 10px var(--glow-color); letter-spacing: 2px; }
-    .stopwatch-buttons { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
-    .sw-btn { padding: 8px 12px; border-radius: 6px; font-weight: 600; border: none; cursor: pointer; font-size: 12px; transition: 0.2s; }
+    .stopwatch-display { font-size: 28px; font-weight: 800; color: var(--primary-color); margin: 15px 0; letter-spacing: 2px; }
+    .stopwatch-buttons { display: flex; justify-content: center; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+    .sw-btn { padding: 6px 10px; border-radius: 6px; font-weight: 600; border: none; cursor: pointer; font-size: 11px; }
     .btn-start { background: #4CAF50; color: #fff; }
     .btn-stop { background: #ff5252; color: #fff; }
     .btn-reset { background: #ff9800; color: #fff; }
-    .lap-list { list-style: none; max-height: 110px; overflow-y: auto; text-align: left; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; font-size: 13px; color: var(--text-muted); }
+    .lap-list { list-style: none; max-height: 100px; overflow-y: auto; text-align: left; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; font-size: 12px; color: var(--text-muted); }
 
-    /* Contact Section */
-    .contact-section { padding: 40px 20px; text-align: center; }
-    .contact-form { max-width: 450px; margin: 0 auto; text-align: left; background: var(--card-bg); backdrop-filter: blur(16px); padding: 30px; border-radius: 20px; border: 1px solid var(--border-color); }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; color: #dddddd; margin-bottom: 8px; }
-    .form-group input, .form-group textarea { width: 100%; padding: 12px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); border-radius: 8px; color: #ffffff; outline: none; }
-    .submit-btn { width: 100%; background: var(--primary-color); color: #000; padding: 14px; border: none; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+    .ttt-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 12px 0; }
+    .ttt-cell {
+      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
+      height: 60px; border-radius: 8px; font-size: 24px; font-weight: 800; color: var(--primary-color);
+      display: flex; justify-content: center; align-items: center; cursor: pointer;
+    }
+    .ttt-status { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text-muted); }
+    .ttt-reset { background: var(--primary-color); color: #000; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 12px; }
 
-    /* Footer */
-    .footer { background: rgba(15, 23, 42, 0.9); color: var(--text-muted); text-align: center; padding: 30px 20px; margin-top: 50px; font-size: 13px; border-top: 1px solid var(--border-color); }
-    .social-links { display: flex; justify-content: center; gap: 20px; margin-top: 10px; }
-    .social-links a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
+    .contact-section { padding: 30px 15px; text-align: center; width: 100%; }
+    .contact-form { max-width: 340px; width: 90%; margin: 0 auto; text-align: left; background: var(--card-bg); backdrop-filter: blur(16px); padding: 20px; border-radius: 16px; border: 1px solid var(--border-color); }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: #dddddd; margin-bottom: 6px; }
+    .form-group input, .form-group textarea { width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); border-radius: 6px; color: #ffffff; outline: none; font-size: 13px; }
+    .submit-btn { width: 100%; background: var(--primary-color); color: #000; padding: 12px; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; }
 
-    .typewriter-text { border-right: 2px solid var(--primary-color); animation: blink 0.7s infinite; }
-    @keyframes blink { 50% { border-color: transparent; } }
+    .footer { background: rgba(15, 23, 42, 0.9); color: var(--text-muted); text-align: center; padding: 25px 15px; margin-top: 30px; font-size: 12px; border-top: 1px solid var(--border-color); }
   </style>
+
+  <script>
+    function changeTheme(mainColor, glowColor) {
+      document.documentElement.style.setProperty('--primary-color', mainColor);
+      document.documentElement.style.setProperty('--glow-color', glowColor);
+    }
+
+    function openWeatherModal() { document.getElementById('weatherModal').style.display = 'flex'; }
+    function closeWeatherModal() { document.getElementById('weatherModal').style.display = 'none'; }
+
+    function openStopwatchModal() { document.getElementById('stopwatchModal').style.display = 'flex'; }
+    function closeStopwatchModal() { document.getElementById('stopwatchModal').style.display = 'none'; }
+
+    function openTttModal() { document.getElementById('tttModal').style.display = 'flex'; }
+    function closeTttModal() { document.getElementById('tttModal').style.display = 'none'; }
+  </script>
 </head>
 <body>
 
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
 
-  <!-- Navbar -->
   <nav class="navbar">
     <div class="logo">MAYANK<span>.DEV</span></div>
     <ul class="nav-links">
       <li><a href="#">Home</a></li>
-      <li><a href="#skills">Services</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- Hero Section (Centered) -->
   <section class="hero">
-    <h1>HI, I'M <span id="typing-name" class="typewriter-text"></span></h1>
+    <!-- यहाँ नाम अब परमानेंट साफ़ दिखाई देगा -->
+    <h1>HI, I'M <span style="color: var(--primary-color); text-shadow: 0 0 12px var(--glow-color);">MAYANK KUMAR</span></h1>
     <p>Frontend Web Developer in Progress. Building modern & responsive web applications.</p>
     
     <div class="theme-picker">
-      <span style="font-size: 12px; color: var(--text-muted);">Glow:</span>
+      <span style="font-size: 11px; color: var(--text-muted);">Glow:</span>
       <div class="color-dot" style="background: #00ffcc;" onclick="changeTheme('#00ffcc', 'rgba(0, 255, 204, 0.35)')"></div>
       <div class="color-dot" style="background: #4CAF50;" onclick="changeTheme('#4CAF50', 'rgba(76, 175, 80, 0.4)')"></div>
       <div class="color-dot" style="background: #ff007f;" onclick="changeTheme('#ff007f', 'rgba(255, 0, 127, 0.4)')"></div>
@@ -193,71 +168,70 @@
     <button class="cta-btn" onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})">View My Work 🚀</button>
   </section>
 
-  <!-- Services -->
   <section class="services-section" id="skills">
     <h2>My Skills & Services 🛠️</h2>
-    <div class="services-container">
+    <div class="services-container" style="margin-top: 15px;">
       <div class="service-card">
         <h3>HTML5 & CSS3</h3>
-        <p>वेबसाइट का लेआउट, स्ट्रक्चर और सुंदर आधुनिक डिजाइन बनाना।</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">वेबसाइट का लेआउट और सुंदर आधुनिक डिजाइन बनाना।</p>
       </div>
       <div class="service-card">
         <h3>Responsive Design</h3>
-        <p>वेबसाइट को मोबाइल, टैबलेट और लैपटॉप पर एकदम परफेक्ट दिखाना।</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">वेबसाइट को मोबाइल और लैपटॉप पर परफेक्ट दिखाना।</p>
       </div>
       <div class="service-card">
         <h3>JavaScript</h3>
-        <p>वेबसाइट में लॉजिक, बटन एक्शन्स और डायनामिक इंटरएक्टिव फीचर्स जोड़ना।</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">वेबसाइट में लॉजिक और इंटरएक्टिव फीचर्स जोड़ना।</p>
       </div>
     </div>
   </section>
 
-  <!-- Projects Section -->
   <section class="projects-section" id="projects">
     <h2>Live Projects 🚀</h2>
-    <div class="projects-container">
-      <!-- Project 1: Weather App -->
+    <div class="projects-container" style="margin-top: 15px;">
       <div class="project-card">
         <div>
           <h3>Weather App 🌤️</h3>
-          <p style="color: var(--text-muted); font-size: 13.5px; margin-top: 8px;">
-            Live weather forecast application. Check temperature and weather conditions for any city.
-          </p>
+          <p style="color: var(--text-muted); font-size: 13px; margin-top: 5px;">Check temperature for any city.</p>
         </div>
         <button class="project-btn" onclick="openWeatherModal()">Launch App 🚀</button>
       </div>
 
-      <!-- Project 2: Stopwatch App -->
       <div class="project-card">
         <div>
           <h3>Stopwatch & Timer ⏱️</h3>
-          <p style="color: var(--text-muted); font-size: 13.5px; margin-top: 8px;">
-            Digital stopwatch with start, stop, reset, and lap time recording features.
-          </p>
+          <p style="color: var(--text-muted); font-size: 13px; margin-top: 5px;">Digital stopwatch with lap tracking.</p>
         </div>
         <button class="project-btn" onclick="openStopwatchModal()">Launch App 🚀</button>
+      </div>
+
+      <div class="project-card">
+        <div>
+          <h3>Tic-Tac-Toe Game 🎮</h3>
+          <p style="color: var(--text-muted); font-size: 13px; margin-top: 5px;">Classic zero-kata interactive game.</p>
+        </div>
+        <button class="project-btn" onclick="openTttModal()">Play Game 🎮</button>
       </div>
     </div>
   </section>
 
-  <!-- Weather App Modal Popup -->
+  <!-- Modals -->
   <div class="modal-overlay" id="weatherModal">
     <div class="modal-box">
       <span class="close-modal" onclick="closeWeatherModal()">&times;</span>
       <h3 style="color: var(--primary-color);">Weather Forecast 🌤️</h3>
       <div class="weather-input-group">
-        <input type="text" id="cityInput" placeholder="Enter city (e.g. Delhi)">
+        <input type="text" id="cityInput" placeholder="Enter city...">
         <button onclick="getWeather()">Search</button>
       </div>
       <div class="weather-display" id="weatherDisplay">
         <h4 id="cityName">Delhi, IN</h4>
         <div class="temp-value" id="tempVal">28°C</div>
-        <p id="weatherDesc" style="color: var(--text-muted); font-size: 14px;">Clear Sky</p>
+        <p id="weatherDesc" style="color: var(--text-muted); font-size: 13px;">Clear Sky</p>
       </div>
     </div>
   </div>
 
-  <!-- Stopwatch Modal Popup -->
   <div class="modal-overlay" id="stopwatchModal">
     <div class="modal-box">
       <span class="close-modal" onclick="closeStopwatchModal()">&times;</span>
@@ -275,141 +249,131 @@
     </div>
   </div>
 
-  <!-- Contact Section -->
+  <div class="modal-overlay" id="tttModal">
+    <div class="modal-box">
+      <span class="close-modal" onclick="closeTttModal()">&times;</span>
+      <h3 style="color: var(--primary-color);">Tic-Tac-Toe 🎮</h3>
+      <div class="ttt-status" id="tttStatus">Player X's turn</div>
+      <div class="ttt-board" id="tttBoard">
+        <div class="ttt-cell" onclick="cellClicked(0)"></div>
+        <div class="ttt-cell" onclick="cellClicked(1)"></div>
+        <div class="ttt-cell" onclick="cellClicked(2)"></div>
+        <div class="ttt-cell" onclick="cellClicked(3)"></div>
+        <div class="ttt-cell" onclick="cellClicked(4)"></div>
+        <div class="ttt-cell" onclick="cellClicked(5)"></div>
+        <div class="ttt-cell" onclick="cellClicked(6)"></div>
+        <div class="ttt-cell" onclick="cellClicked(7)"></div>
+        <div class="ttt-cell" onclick="cellClicked(8)"></div>
+      </div>
+      <button class="ttt-reset" onclick="resetTtt()">Restart Game</button>
+    </div>
+  </div>
+
   <section class="contact-section" id="contact">
     <h2>Get In Touch ✉️</h2>
-    <p style="color: var(--text-muted); margin-bottom: 20px;">Contact me or send a message for your project</p>
-
-    <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
-      <div class="form-group">
-        <label>Your Name</label>
-        <input type="text" placeholder="enter your name..." required>
-      </div>
-      <div class="form-group">
-        <label>Your Email</label>
-        <input type="email" placeholder="enter your email..." required>
-      </div>
-      <div class="form-group">
-        <label>Message</label>
-        <textarea rows="4" placeholder="enter your message..." required></textarea>
-      </div>
+    <form class="contact-form" style="margin-top: 15px;" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+      <div class="form-group"><label>Your Name</label><input type="text" placeholder="name..." required></div>
+      <div class="form-group"><label>Your Email</label><input type="email" placeholder="email..." required></div>
+      <div class="form-group"><label>Message</label><textarea rows="3" placeholder="message..." required></textarea></div>
       <button type="submit" class="submit-btn">Send Message 🚀</button>
     </form>
   </section>
 
-  <!-- Footer -->
   <footer class="footer">
     <p>© 2026 MAYANK.DEV | All Rights Reserved.</p>
-    <div class="social-links">
-      <a href="https://github.com/kumarmayank97513-afk" target="_blank">GitHub</a>
-    </div>
   </footer>
 
   <script>
-    function changeTheme(mainColor, glowColor) {
-      document.documentElement.style.setProperty('--primary-color', mainColor);
-      document.documentElement.style.setProperty('--glow-color', glowColor);
-    }
-
-    /* Weather Modal Control */
-    function openWeatherModal() { document.getElementById('weatherModal').style.display = 'flex'; }
-    function closeWeatherModal() { document.getElementById('weatherModal').style.display = 'none'; }
-
-    /* Weather Logic */
     async function getWeather() {
       const city = document.getElementById('cityInput').value.trim();
       if (!city) return;
-      
       const cityName = document.getElementById('cityName');
       const tempVal = document.getElementById('tempVal');
       const weatherDesc = document.getElementById('weatherDesc');
-
       tempVal.textContent = "Loading...";
-      
       try {
         const res = await fetch(`https://wttr.in/${encodeURIComponent(city)}?format=j1`);
         const data = await res.json();
         const current = data.current_condition[0];
-        
         cityName.textContent = `${city.toUpperCase()}`;
         tempVal.textContent = `${current.temp_C}°C`;
         weatherDesc.textContent = current.weatherDesc[0].value;
       } catch (err) {
         cityName.textContent = "City Not Found";
         tempVal.textContent = "--";
-        weatherDesc.textContent = "Please try another city";
+        weatherDesc.textContent = "Try another city";
       }
     }
 
-    /* Stopwatch Modal Control */
-    function openStopwatchModal() { document.getElementById('stopwatchModal').style.display = 'flex'; }
-    function closeStopwatchModal() { document.getElementById('stopwatchModal').style.display = 'none'; }
-
-    /* Stopwatch Logic */
-    let seconds = 0, minutes = 0, hours = 0;
-    let timerInterval = null;
-
+    let seconds = 0, minutes = 0, hours = 0, timerInterval = null;
     function updateStopwatchDisplay() {
       let h = hours < 10 ? "0" + hours : hours;
       let m = minutes < 10 ? "0" + minutes : minutes;
       let s = seconds < 10 ? "0" + seconds : seconds;
       document.getElementById('swDisplay').textContent = `${h}:${m}:${s}`;
     }
-
     function startStopwatch() {
       if (timerInterval !== null) return;
       timerInterval = setInterval(() => {
         seconds++;
-        if (seconds === 60) {
-          seconds = 0;
-          minutes++;
-          if (minutes === 60) {
-            minutes = 0;
-            hours++;
-          }
-        }
+        if (seconds === 60) { seconds = 0; minutes++; if (minutes === 60) { minutes = 0; hours++; } }
         updateStopwatchDisplay();
       }, 1000);
     }
-
-    function stopStopwatch() {
-      clearInterval(timerInterval);
-      timerInterval = null;
-    }
-
+    function stopStopwatch() { clearInterval(timerInterval); timerInterval = null; }
     function resetStopwatch() {
       stopStopwatch();
       seconds = 0; minutes = 0; hours = 0;
       updateStopwatchDisplay();
       document.getElementById('lapList').innerHTML = `<li style="color: #666; text-align: center;">No laps recorded yet</li>`;
     }
-
     function lapStopwatch() {
       if (timerInterval === null) return;
       const lapList = document.getElementById('lapList');
-      if (lapList.innerHTML.includes("No laps")) {
-        lapList.innerHTML = "";
-      }
+      if (lapList.innerHTML.includes("No laps")) lapList.innerHTML = "";
       let currentVal = document.getElementById('swDisplay').textContent;
       const li = document.createElement('li');
       li.style.padding = "4px 0";
-      li.style.borderBottom = "1px solid rgba(255,255,255,0.05)";
       li.textContent = `Lap: ${currentVal}`;
       lapList.prepend(li);
     }
 
-    /* Typewriter Effect */
-    const textToType = "MAYANK KUMAR";
-    const typingElement = document.getElementById("typing-name");
-    let charIndex = 0;
-    function typeEffect() {
-      if (charIndex < textToType.length) {
-        typingElement.textContent += textToType.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeEffect, 150);
+    let tttBoard = ["", "", "", "", "", "", "", "", ""];
+    let currentPlayer = "X";
+    let isGameActive = true;
+    const winningConditions = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+
+    function cellClicked(index) {
+      if (tttBoard[index] !== "" || !isGameActive) return;
+      tttBoard[index] = currentPlayer;
+      document.getElementsByClassName('ttt-cell')[index].textContent = currentPlayer;
+      let roundWon = false;
+      for (let i = 0; i < winningConditions.length; i++) {
+        const [a, b, c] = winningConditions[i];
+        if (tttBoard[a] && tttBoard[a] === tttBoard[b] && tttBoard[a] === tttBoard[c]) { roundWon = true; break; }
       }
+      if (roundWon) {
+        document.getElementById('tttStatus').textContent = `Player ${currentPlayer} Wins! 🎉`;
+        isGameActive = false;
+        return;
+      }
+      if (!tttBoard.includes("")) {
+        document.getElementById('tttStatus').textContent = `Game Draw! 🤝`;
+        isGameActive = false;
+        return;
+      }
+      currentPlayer = currentPlayer === "X" ? "O" : "X";
+      document.getElementById('tttStatus').textContent = `Player ${currentPlayer}'s turn`;
     }
-    window.onload = typeEffect;
+
+    function resetTtt() {
+      tttBoard = ["", "", "", "", "", "", "", "", ""];
+      isGameActive = true;
+      currentPlayer = "X";
+      document.getElementById('tttStatus').textContent = `Player X's turn`;
+      const cells = document.getElementsByClassName('ttt-cell');
+      for (let i = 0; i < cells.length; i++) cells[i].textContent = "";
+    }
   </script>
 </body>
 </html>
