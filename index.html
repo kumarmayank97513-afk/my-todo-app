@@ -1,379 +1,190 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MAYANK.DEV | Portfolio & Playground</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-  
-  <style>
-    :root {
-      --bg-color: #0b0f19;
-      --card-bg: rgba(255, 255, 255, 0.04);
-      --border-color: rgba(255, 255, 255, 0.1);
-      --primary-color: #00ffcc;
-      --glow-color: rgba(0, 255, 204, 0.35);
-      --text-color: #ffffff;
-      --text-muted: #a0a5b5;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-    body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; overflow-x: hidden; position: relative; text-align: center; }
-
-    .blob { position: absolute; width: 280px; height: 280px; filter: blur(120px); border-radius: 50%; z-index: -1; opacity: 0.35; animation: float 8s infinite alternate ease-in-out; }
-    .blob-1 { top: 5%; left: 10%; background: var(--primary-color); }
-    .blob-2 { bottom: 20%; right: 10%; background: #ff007f; }
-
-    @keyframes float {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(40px, 40px) scale(1.15); }
-    }
-
-    .navbar {
-      background: rgba(15, 23, 42, 0.7);
-      backdrop-filter: blur(12px);
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 18px 5%; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border-color);
-    }
-    .logo { color: #ffffff; font-size: 20px; font-weight: 800; letter-spacing: 1px; }
-    .logo span { color: var(--primary-color); text-shadow: 0 0 10px var(--primary-color); }
-    .nav-links { list-style: none; display: flex; gap: 15px; }
-    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 600; }
-    .nav-links a:hover { color: var(--primary-color); }
-
-    .hero { 
-      padding: 60px 15px 30px 15px; 
-      display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%;
-    }
-    .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 12px; width: 100%; }
-    .hero h1 span { color: var(--primary-color); text-shadow: 0 0 12px var(--glow-color); display: inline-block; word-break: break-word; }
-    .hero p { font-size: 14px; color: var(--text-muted); max-width: 400px; margin: 0 auto 20px auto; padding: 0 10px; }
-
-    .theme-picker {
-      display: flex; justify-content: center; align-items: center; gap: 12px;
-      margin: 0 auto 20px auto; background: rgba(255, 255, 255, 0.03);
-      padding: 8px 16px; border-radius: 30px; width: fit-content; border: 1px solid var(--border-color);
-    }
-    .color-dot { width: 20px; height: 20px; border-radius: 50%; cursor: pointer; border: 2px solid #fff; transition: 0.2s; }
-    .color-dot:hover { transform: scale(1.3); }
-
-    .cta-btn { background: var(--primary-color); color: #000; padding: 12px 28px; border: none; border-radius: 30px; font-size: 14px; font-weight: 700; cursor: pointer; box-shadow: 0 0 15px var(--glow-color); }
-    
-    .services-section { padding: 30px 15px; text-align: center; width: 100%; }
-    .services-container { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
-    .service-card {
-      background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--border-color);
-      border-left: 4px solid var(--primary-color); border-radius: 16px; padding: 20px; width: 90%; max-width: 340px; text-align: left;
-    }
-
-    .projects-section { padding: 30px 15px; text-align: center; width: 100%; }
-    .projects-container { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; }
-    .project-card {
-      background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--border-color);
-      border-radius: 16px; padding: 20px; width: 90%; max-width: 340px; text-align: left; display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .project-btn {
-      display: block; width: 100%; margin-top: 15px; padding: 10px; background: transparent;
-      color: var(--primary-color); border: 1px solid var(--primary-color); border-radius: 8px; text-align: center; font-weight: 600; cursor: pointer;
-    }
-    .project-btn:hover { background: var(--primary-color); color: #000; }
-
-    .modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
-      display: none; justify-content: center; align-items: center; z-index: 1000; padding: 15px;
-    }
-    .modal-box {
-      background: #111827; border: 1px solid var(--primary-color); border-radius: 16px;
-      padding: 20px; width: 100%; max-width: 340px; box-shadow: 0 0 25px var(--glow-color); position: relative; text-align: center;
-    }
-    .close-modal { position: absolute; top: 12px; right: 18px; color: #fff; font-size: 22px; cursor: pointer; }
-
-    .weather-input-group { display: flex; gap: 8px; margin: 15px 0; width: 100%; }
-    .weather-input-group input { flex: 1; min-width: 0; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); background: rgba(0,0,0,0.5); color: #fff; outline: none; font-size: 13px; }
-    .weather-input-group button { background: var(--primary-color); color: #000; border: none; padding: 10px 12px; border-radius: 6px; font-weight: 700; cursor: pointer; white-space: nowrap; font-size: 12px; }
-    .weather-display { margin-top: 15px; background: rgba(255, 255, 255, 0.03); padding: 12px; border-radius: 12px; border: 1px solid var(--border-color); }
-    .temp-value { font-size: 28px; font-weight: 800; color: var(--primary-color); margin: 6px 0; }
-
-    .stopwatch-display { font-size: 28px; font-weight: 800; color: var(--primary-color); margin: 15px 0; letter-spacing: 2px; }
-    .stopwatch-buttons { display: flex; justify-content: center; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
-    .sw-btn { padding: 6px 10px; border-radius: 6px; font-weight: 600; border: none; cursor: pointer; font-size: 11px; }
-    .btn-start { background: #4CAF50; color: #fff; }
-    .btn-stop { background: #ff5252; color: #fff; }
-    .btn-reset { background: #ff9800; color: #fff; }
-    .lap-list { list-style: none; max-height: 100px; overflow-y: auto; text-align: left; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 6px; font-size: 12px; color: var(--text-muted); }
-
-    .ttt-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin: 12px 0; }
-    .ttt-cell {
-      background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
-      height: 60px; border-radius: 8px; font-size: 24px; font-weight: 800; color: var(--primary-color);
-      display: flex; justify-content: center; align-items: center; cursor: pointer;
-    }
-    .ttt-status { font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text-muted); }
-    .ttt-reset { background: var(--primary-color); color: #000; border: none; padding: 6px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 12px; }
-
-    .contact-section { padding: 30px 15px; text-align: center; width: 100%; }
-    .contact-form { max-width: 340px; width: 90%; margin: 0 auto; text-align: left; background: var(--card-bg); backdrop-filter: blur(16px); padding: 20px; border-radius: 16px; border: 1px solid var(--border-color); }
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; font-size: 12px; font-weight: 600; color: #dddddd; margin-bottom: 6px; }
-    .form-group input, .form-group textarea { width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-color); border-radius: 6px; color: #ffffff; outline: none; font-size: 13px; }
-    .submit-btn { width: 100%; background: var(--primary-color); color: #000; padding: 12px; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; }
-
-    .footer { background: rgba(15, 23, 42, 0.9); color: var(--text-muted); text-align: center; padding: 25px 15px; margin-top: 30px; font-size: 12px; border-top: 1px solid var(--border-color); }
-  </style>
-
-  <script>
-    function changeTheme(mainColor, glowColor) {
-      document.documentElement.style.setProperty('--primary-color', mainColor);
-      document.documentElement.style.setProperty('--glow-color', glowColor);
-    }
-
-    function openWeatherModal() { document.getElementById('weatherModal').style.display = 'flex'; }
-    function closeWeatherModal() { document.getElementById('weatherModal').style.display = 'none'; }
-
-    function openStopwatchModal() { document.getElementById('stopwatchModal').style.display = 'flex'; }
-    function closeStopwatchModal() { document.getElementById('stopwatchModal').style.display = 'none'; }
-
-    function openTttModal() { document.getElementById('tttModal').style.display = 'flex'; }
-    function closeTttModal() { document.getElementById('tttModal').style.display = 'none'; }
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayank Kumar | Full-Stack Developer</title>
+    <!-- React, ReactDOM, Babel & Tailwind CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
 
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
+    <div id="root"></div>
 
-  <nav class="navbar">
-    <div class="logo">MAYANK<span>.DEV</span></div>
-    <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+    <script type="text/babel">
+        // 1. Hero Component
+        function Hero() {
+            return (
+                <section className="text-center py-12 px-4 border-b border-slate-800">
+                    <div className="w-24 h-24 bg-sky-500 rounded-full mx-auto flex items-center justify-center text-3xl font-bold text-slate-950 mb-4 shadow-lg shadow-sky-500/20">
+                        MK
+                    </div>
+                    <h1 className="text-3xl font-extrabold text-white sm:text-4xl">
+                        Mayank Kumar
+                    </h1>
+                    <p className="text-sky-400 font-medium mt-1">Full-Stack Web Developer</p>
+                    <p className="text-slate-400 text-sm mt-3 max-w-md mx-auto">
+                        मैं HTML, CSS, Tailwind, JavaScript और React.js का इस्तेमाल करके मॉडर्न वेब एप्लिकेशन्स बनाता हूँ।
+                    </p>
+                    <div className="mt-6 flex justify-center gap-3">
+                        <a href="#projects" className="bg-sky-500 hover:bg-sky-400 text-slate-950 px-5 py-2 rounded-xl font-bold text-sm transition">
+                            प्रोजेक्ट्स देखें
+                        </a>
+                        <a href="#contact" className="bg-slate-800 hover:bg-slate-700 text-slate-200 px-5 py-2 rounded-xl font-bold text-sm border border-slate-700 transition">
+                            संपर्क करें
+                        </a>
+                    </div>
+                </section>
+            );
+        }
 
-  <section class="hero">
-    <!-- यहाँ नाम अब परमानेंट साफ़ दिखाई देगा -->
-    <h1>HI, I'M <span style="color: var(--primary-color); text-shadow: 0 0 12px var(--glow-color);">MAYANK KUMAR</span></h1>
-    <p>Frontend Web Developer in Progress. Building modern & responsive web applications.</p>
-    
-    <div class="theme-picker">
-      <span style="font-size: 11px; color: var(--text-muted);">Glow:</span>
-      <div class="color-dot" style="background: #00ffcc;" onclick="changeTheme('#00ffcc', 'rgba(0, 255, 204, 0.35)')"></div>
-      <div class="color-dot" style="background: #4CAF50;" onclick="changeTheme('#4CAF50', 'rgba(76, 175, 80, 0.4)')"></div>
-      <div class="color-dot" style="background: #ff007f;" onclick="changeTheme('#ff007f', 'rgba(255, 0, 127, 0.4)')"></div>
-      <div class="color-dot" style="background: #00bfff;" onclick="changeTheme('#00bfff', 'rgba(0, 191, 255, 0.4)')"></div>
-    </div>
+        // 2. Skills Component
+        function Skills() {
+            const skillsList = ['HTML5', 'CSS3', 'Tailwind CSS', 'JavaScript (ES6)', 'React.js', 'Fetch API', 'GitHub'];
+            return (
+                <section id="skills" className="py-10 px-4 border-b border-slate-800 max-w-2xl mx-auto">
+                    <h2 className="text-xl font-bold text-sky-400 mb-4 text-center">My Tech Stack</h2>
+                    <div className="flex flex-wrap justify-center gap-2">
+                        {skillsList.map((skill, index) => (
+                            <span key={index} className="bg-slate-900 border border-slate-800 text-slate-300 text-xs px-3.5 py-2 rounded-xl font-medium">
+                                ⚡ {skill}
+                            </span>
+                        ))}
+                    </div>
+                </section>
+            );
+        }
 
-    <button class="cta-btn" onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})">View My Work 🚀</button>
-  </section>
+        // 3. Project Card Component
+        function ProjectCard({ title, desc, tech }) {
+            return (
+                <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between hover:border-sky-500/50 transition">
+                    <div>
+                        <h3 className="text-lg font-bold text-white mb-1">{title}</h3>
+                        <p className="text-slate-400 text-xs mb-3 leading-relaxed">{desc}</p>
+                        <div className="flex flex-wrap gap-1.5 mb-4">
+                            {tech.map((t, idx) => (
+                                <span key={idx} className="text-[10px] bg-slate-800 text-sky-300 px-2 py-0.5 rounded-md">
+                                    {t}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                    <button className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs py-2 rounded-xl font-semibold border border-slate-700 transition">
+                        View Details
+                    </button>
+                </div>
+            );
+        }
 
-  <section class="services-section" id="skills">
-    <h2>My Skills & Services 🛠️</h2>
-    <div class="services-container" style="margin-top: 15px;">
-      <div class="service-card">
-        <h3>HTML5 & CSS3</h3>
-        <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">वेबसाइट का लेआउट और सुंदर आधुनिक डिजाइन बनाना।</p>
-      </div>
-      <div class="service-card">
-        <h3>Responsive Design</h3>
-        <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">वेबसाइट को मोबाइल और लैपटॉप पर परफेक्ट दिखाना।</p>
-      </div>
-      <div class="service-card">
-        <h3>JavaScript</h3>
-        <p style="font-size: 13px; color: var(--text-muted); margin-top: 5px;">वेबसाइट में लॉजिक और इंटरएक्टिव फीचर्स जोड़ना।</p>
-      </div>
-    </div>
-  </section>
+        // 4. Projects Showcase Section
+        function Projects() {
+            const myProjects = [
+                {
+                    title: 'Live Weather App',
+                    desc: 'Fetch API का उपयोग करके किसी भी शहर का रियल-टाइम तापमान और मौसम अपडेट दिखाने वाला ऐप।',
+                    tech: ['HTML', 'CSS', 'JavaScript', 'Fetch API']
+                },
+                {
+                    title: 'To-Do List (LocalStorage)',
+                    desc: 'टास्क ऐड, डिलीट और ब्राउज़र लोकल स्टोरेज में स्थायी डेटा सेव करने वाला React To-Do ऐप।',
+                    tech: ['React.js', 'Tailwind CSS', 'LocalStorage']
+                },
+                {
+                    title: 'MAYANK.DEV Portfolio',
+                    desc: 'मेरा पर्सनल डेवलपर पोर्टफोलियो जो React कंपोनेंट्स और dynamic UI पर बना है।',
+                    tech: ['React.js', 'Tailwind CSS', 'GitHub Pages']
+                }
+            ];
 
-  <section class="projects-section" id="projects">
-    <h2>Live Projects 🚀</h2>
-    <div class="projects-container" style="margin-top: 15px;">
-      <div class="project-card">
-        <div>
-          <h3>Weather App 🌤️</h3>
-          <p style="color: var(--text-muted); font-size: 13px; margin-top: 5px;">Check temperature for any city.</p>
-        </div>
-        <button class="project-btn" onclick="openWeatherModal()">Launch App 🚀</button>
-      </div>
+            return (
+                <section id="projects" className="py-10 px-4 border-b border-slate-800 max-w-2xl mx-auto">
+                    <h2 className="text-xl font-bold text-sky-400 mb-6 text-center">Featured Projects</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {myProjects.map((p, index) => (
+                            <ProjectCard key={index} title={p.title} desc={p.desc} tech={p.tech} />
+                        ))}
+                    </div>
+                </section>
+            );
+        }
 
-      <div class="project-card">
-        <div>
-          <h3>Stopwatch & Timer ⏱️</h3>
-          <p style="color: var(--text-muted); font-size: 13px; margin-top: 5px;">Digital stopwatch with lap tracking.</p>
-        </div>
-        <button class="project-btn" onclick="openStopwatchModal()">Launch App 🚀</button>
-      </div>
+        // 5. NEW: Contact Form Component with State
+        function Contact() {
+            const [formData, setFormData] = React.useState({ name: '', email: '', message: '' });
+            const [submitted, setSubmitted] = React.useState(false);
 
-      <div class="project-card">
-        <div>
-          <h3>Tic-Tac-Toe Game 🎮</h3>
-          <p style="color: var(--text-muted); font-size: 13px; margin-top: 5px;">Classic zero-kata interactive game.</p>
-        </div>
-        <button class="project-btn" onclick="openTttModal()">Play Game 🎮</button>
-      </div>
-    </div>
-  </section>
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if(formData.name && formData.message) {
+                    setSubmitted(true);
+                }
+            };
 
-  <!-- Modals -->
-  <div class="modal-overlay" id="weatherModal">
-    <div class="modal-box">
-      <span class="close-modal" onclick="closeWeatherModal()">&times;</span>
-      <h3 style="color: var(--primary-color);">Weather Forecast 🌤️</h3>
-      <div class="weather-input-group">
-        <input type="text" id="cityInput" placeholder="Enter city...">
-        <button onclick="getWeather()">Search</button>
-      </div>
-      <div class="weather-display" id="weatherDisplay">
-        <h4 id="cityName">Delhi, IN</h4>
-        <div class="temp-value" id="tempVal">28°C</div>
-        <p id="weatherDesc" style="color: var(--text-muted); font-size: 13px;">Clear Sky</p>
-      </div>
-    </div>
-  </div>
+            return (
+                <section id="contact" className="py-10 px-4 max-w-md mx-auto">
+                    <h2 className="text-xl font-bold text-sky-400 mb-2 text-center">Get In Touch</h2>
+                    <p className="text-slate-400 text-xs text-center mb-6">मुझसे संपर्क करने के लिए नीचे फ़ॉर्म भरें</p>
 
-  <div class="modal-overlay" id="stopwatchModal">
-    <div class="modal-box">
-      <span class="close-modal" onclick="closeStopwatchModal()">&times;</span>
-      <h3 style="color: var(--primary-color);">Digital Stopwatch ⏱️</h3>
-      <div class="stopwatch-display" id="swDisplay">00:00:00</div>
-      <div class="stopwatch-buttons">
-        <button class="sw-btn btn-start" onclick="startStopwatch()">Start</button>
-        <button class="sw-btn btn-stop" onclick="stopStopwatch()">Stop</button>
-        <button class="sw-btn btn-reset" onclick="resetStopwatch()">Reset</button>
-        <button class="sw-btn" style="background:var(--primary-color); color:#000;" onclick="lapStopwatch()">Lap</button>
-      </div>
-      <ul class="lap-list" id="lapList">
-        <li style="color: #666; text-align: center;">No laps recorded yet</li>
-      </ul>
-    </div>
-  </div>
+                    {submitted ? (
+                        <div className="bg-emerald-500/10 border border-emerald-500/30 p-4 rounded-xl text-center text-emerald-400 text-sm">
+                            ✅ धन्यवाद {formData.name}! आपका मैसेज प्राप्त हो गया है।
+                        </div>
+                    ) : (
+                        <form onSubmit={handleSubmit} className="space-y-3">
+                            <input 
+                                type="text" 
+                                placeholder="आपका नाम" 
+                                value={formData.name}
+                                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-sky-500"
+                                required 
+                            />
+                            <input 
+                                type="email" 
+                                placeholder="ईमेल आईडी" 
+                                value={formData.email}
+                                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-sky-500"
+                                required 
+                            />
+                            <textarea 
+                                placeholder="आपका संदेश..." 
+                                rows="3"
+                                value={formData.message}
+                                onChange={(e) => setFormData({...formData, message: e.target.value})}
+                                className="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-sky-500"
+                                required
+                            ></textarea>
+                            <button type="submit" className="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold py-2.5 rounded-xl text-xs transition">
+                                मैसेज भेजें 🚀
+                            </button>
+                        </form>
+                    )}
+                </section>
+            );
+        }
 
-  <div class="modal-overlay" id="tttModal">
-    <div class="modal-box">
-      <span class="close-modal" onclick="closeTttModal()">&times;</span>
-      <h3 style="color: var(--primary-color);">Tic-Tac-Toe 🎮</h3>
-      <div class="ttt-status" id="tttStatus">Player X's turn</div>
-      <div class="ttt-board" id="tttBoard">
-        <div class="ttt-cell" onclick="cellClicked(0)"></div>
-        <div class="ttt-cell" onclick="cellClicked(1)"></div>
-        <div class="ttt-cell" onclick="cellClicked(2)"></div>
-        <div class="ttt-cell" onclick="cellClicked(3)"></div>
-        <div class="ttt-cell" onclick="cellClicked(4)"></div>
-        <div class="ttt-cell" onclick="cellClicked(5)"></div>
-        <div class="ttt-cell" onclick="cellClicked(6)"></div>
-        <div class="ttt-cell" onclick="cellClicked(7)"></div>
-        <div class="ttt-cell" onclick="cellClicked(8)"></div>
-      </div>
-      <button class="ttt-reset" onclick="resetTtt()">Restart Game</button>
-    </div>
-  </div>
+        // 6. Main App Component
+        function MainApp() {
+            return (
+                <div className="pb-8">
+                    <Hero />
+                    <Skills />
+                    <Projects />
+                    <Contact />
+                    <footer className="text-center text-xs text-slate-500 mt-6 border-t border-slate-900 pt-6">
+                        © 2026 Mayank Kumar. Built with React & Tailwind CSS.
+                    </footer>
+                </div>
+            );
+        }
 
-  <section class="contact-section" id="contact">
-    <h2>Get In Touch ✉️</h2>
-    <form class="contact-form" style="margin-top: 15px;" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
-      <div class="form-group"><label>Your Name</label><input type="text" placeholder="name..." required></div>
-      <div class="form-group"><label>Your Email</label><input type="email" placeholder="email..." required></div>
-      <div class="form-group"><label>Message</label><textarea rows="3" placeholder="message..." required></textarea></div>
-      <button type="submit" class="submit-btn">Send Message 🚀</button>
-    </form>
-  </section>
-
-  <footer class="footer">
-    <p>© 2026 MAYANK.DEV | All Rights Reserved.</p>
-  </footer>
-
-  <script>
-    async function getWeather() {
-      const city = document.getElementById('cityInput').value.trim();
-      if (!city) return;
-      const cityName = document.getElementById('cityName');
-      const tempVal = document.getElementById('tempVal');
-      const weatherDesc = document.getElementById('weatherDesc');
-      tempVal.textContent = "Loading...";
-      try {
-        const res = await fetch(`https://wttr.in/${encodeURIComponent(city)}?format=j1`);
-        const data = await res.json();
-        const current = data.current_condition[0];
-        cityName.textContent = `${city.toUpperCase()}`;
-        tempVal.textContent = `${current.temp_C}°C`;
-        weatherDesc.textContent = current.weatherDesc[0].value;
-      } catch (err) {
-        cityName.textContent = "City Not Found";
-        tempVal.textContent = "--";
-        weatherDesc.textContent = "Try another city";
-      }
-    }
-
-    let seconds = 0, minutes = 0, hours = 0, timerInterval = null;
-    function updateStopwatchDisplay() {
-      let h = hours < 10 ? "0" + hours : hours;
-      let m = minutes < 10 ? "0" + minutes : minutes;
-      let s = seconds < 10 ? "0" + seconds : seconds;
-      document.getElementById('swDisplay').textContent = `${h}:${m}:${s}`;
-    }
-    function startStopwatch() {
-      if (timerInterval !== null) return;
-      timerInterval = setInterval(() => {
-        seconds++;
-        if (seconds === 60) { seconds = 0; minutes++; if (minutes === 60) { minutes = 0; hours++; } }
-        updateStopwatchDisplay();
-      }, 1000);
-    }
-    function stopStopwatch() { clearInterval(timerInterval); timerInterval = null; }
-    function resetStopwatch() {
-      stopStopwatch();
-      seconds = 0; minutes = 0; hours = 0;
-      updateStopwatchDisplay();
-      document.getElementById('lapList').innerHTML = `<li style="color: #666; text-align: center;">No laps recorded yet</li>`;
-    }
-    function lapStopwatch() {
-      if (timerInterval === null) return;
-      const lapList = document.getElementById('lapList');
-      if (lapList.innerHTML.includes("No laps")) lapList.innerHTML = "";
-      let currentVal = document.getElementById('swDisplay').textContent;
-      const li = document.createElement('li');
-      li.style.padding = "4px 0";
-      li.textContent = `Lap: ${currentVal}`;
-      lapList.prepend(li);
-    }
-
-    let tttBoard = ["", "", "", "", "", "", "", "", ""];
-    let currentPlayer = "X";
-    let isGameActive = true;
-    const winningConditions = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-
-    function cellClicked(index) {
-      if (tttBoard[index] !== "" || !isGameActive) return;
-      tttBoard[index] = currentPlayer;
-      document.getElementsByClassName('ttt-cell')[index].textContent = currentPlayer;
-      let roundWon = false;
-      for (let i = 0; i < winningConditions.length; i++) {
-        const [a, b, c] = winningConditions[i];
-        if (tttBoard[a] && tttBoard[a] === tttBoard[b] && tttBoard[a] === tttBoard[c]) { roundWon = true; break; }
-      }
-      if (roundWon) {
-        document.getElementById('tttStatus').textContent = `Player ${currentPlayer} Wins! 🎉`;
-        isGameActive = false;
-        return;
-      }
-      if (!tttBoard.includes("")) {
-        document.getElementById('tttStatus').textContent = `Game Draw! 🤝`;
-        isGameActive = false;
-        return;
-      }
-      currentPlayer = currentPlayer === "X" ? "O" : "X";
-      document.getElementById('tttStatus').textContent = `Player ${currentPlayer}'s turn`;
-    }
-
-    function resetTtt() {
-      tttBoard = ["", "", "", "", "", "", "", "", ""];
-      isGameActive = true;
-      currentPlayer = "X";
-      document.getElementById('tttStatus').textContent = `Player X's turn`;
-      const cells = document.getElementsByClassName('ttt-cell');
-      for (let i = 0; i < cells.length; i++) cells[i].textContent = "";
-    }
-  </script>
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<MainApp />);
+    </script>
 </body>
 </html>
