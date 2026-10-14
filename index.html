@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mayank Kumar | Full-Stack Developer</title>
+    <!-- Google Site Verification Meta Tag (SEO & Google Indexing) -->
+    <meta name="google-site-verification" content="mixFVxIqspVfyZM3620hvgXa7aNyTpt_7aWt4ngHK_w" />
+    
     <!-- React, ReactDOM, Babel & Tailwind CDN -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -59,44 +62,187 @@
         }
 
         // 3. Project Card Component
-        function ProjectCard({ title, desc, tech }) {
+        function ProjectCard({ project, onOpenModal }) {
             return (
                 <div className="bg-slate-900 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between hover:border-sky-500/50 transition">
                     <div>
-                        <h3 className="text-lg font-bold text-white mb-1">{title}</h3>
-                        <p className="text-slate-400 text-xs mb-3 leading-relaxed">{desc}</p>
+                        <h3 className="text-lg font-bold text-white mb-1">{project.title}</h3>
+                        <p className="text-slate-400 text-xs mb-3 leading-relaxed">{project.desc}</p>
                         <div className="flex flex-wrap gap-1.5 mb-4">
-                            {tech.map((t, idx) => (
+                            {project.tech.map((t, idx) => (
                                 <span key={idx} className="text-[10px] bg-slate-800 text-sky-300 px-2 py-0.5 rounded-md">
                                     {t}
                                 </span>
                             ))}
                         </div>
                     </div>
-                    <button className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs py-2 rounded-xl font-semibold border border-slate-700 transition">
-                        View Details
+                    <button 
+                        onClick={() => onOpenModal(project)}
+                        className="w-full bg-slate-800 hover:bg-sky-500 hover:text-slate-950 text-slate-200 text-xs py-2 rounded-xl font-semibold border border-slate-700 transition">
+                        View Details 🔍
                     </button>
                 </div>
             );
         }
 
-        // 4. Projects Showcase Section
-        function Projects() {
+        // --- Demo Widgets Component (लाइव डेमो दिखाने के लिए) ---
+        function WeatherDemo() {
+            const [city, setCity] = React.useState('Agra');
+            const [temp, setTemp] = React.useState('32°C');
+            const [condition, setCondition] = React.useState('Sunny ☀️');
+
+            const handleSearch = () => {
+                if(!city) return;
+                setTemp('29°C');
+                setCondition('Partly Cloudy ⛅');
+            };
+
+            return (
+                <div className="bg-slate-800/80 p-4 rounded-xl border border-slate-700 text-center my-4">
+                    <p className="text-xs text-sky-400 mb-2 font-semibold">☀️ Weather App Widget (Live Interactive)</p>
+                    <div className="flex gap-2 mb-3">
+                        <input 
+                            type="text" 
+                            value={city} 
+                            onChange={(e) => setCity(e.target.value)}
+                            className="bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white flex-1"
+                        />
+                        <button onClick={handleSearch} className="bg-sky-500 text-slate-950 font-bold px-3 text-xs rounded-lg">
+                            Search
+                        </button>
+                    </div>
+                    <div className="bg-slate-900 p-3 rounded-lg">
+                        <h4 className="text-lg font-bold text-white">{city}</h4>
+                        <p className="text-2xl font-extrabold text-amber-400 my-1">{temp}</p>
+                        <p className="text-xs text-slate-400">{condition}</p>
+                    </div>
+                </div>
+            );
+        }
+
+        function TodoDemo() {
+            const [todos, setTodos] = React.useState(['HTML & CSS सीखना', 'React Portfolio बनाना']);
+            const [input, setInput] = React.useState('');
+
+            const addTodo = () => {
+                if(!input.trim()) return;
+                setTodos([...todos, input]);
+                setInput('');
+            };
+
+            return (
+                <div className="bg-slate-800/80 p-4 rounded-xl border border-slate-700 my-4">
+                    <p className="text-xs text-sky-400 mb-2 font-semibold text-center">📝 To-Do List Widget (Live Interactive)</p>
+                    <div className="flex gap-2 mb-3">
+                        <input 
+                            type="text" 
+                            placeholder="नया टास्क..." 
+                            value={input} 
+                            onChange={(e) => setInput(e.target.value)}
+                            className="bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white flex-1"
+                        />
+                        <button onClick={addTodo} className="bg-emerald-500 text-slate-950 font-bold px-3 text-xs rounded-lg">
+                            Add
+                        </button>
+                    </div>
+                    <ul className="space-y-1.5 max-h-32 overflow-y-auto">
+                        {todos.map((t, i) => (
+                            <li key={i} className="bg-slate-900 px-3 py-1.5 rounded-lg text-xs flex justify-between items-center border border-slate-800">
+                                <span>{i+1}. {t}</span>
+                                <span className="text-emerald-400 text-[10px]">✓ Done</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        }
+
+        // 4. Modal / Popup Component
+        function ProjectModal({ project, onClose }) {
+            const [showLiveDemo, setShowLiveDemo] = React.useState(false);
+
+            if (!project) return null;
+
+            return (
+                <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+                    <div className="bg-slate-900 border border-slate-700 p-6 rounded-2xl max-w-md w-full shadow-2xl relative max-h-[90vh] overflow-y-auto">
+                        <button 
+                            onClick={onClose}
+                            className="absolute top-4 right-4 text-slate-400 hover:text-white font-bold text-lg">
+                            ✕
+                        </button>
+
+                        <h3 className="text-xl font-bold text-sky-400 mb-2">{project.title}</h3>
+                        <p className="text-slate-300 text-xs mb-4 leading-relaxed">{project.fullDetails}</p>
+
+                        {/* अगर यूज़र ने Live Demo बटन दबाया तो यहीं ऐप का वर्किंग मॉडल खुलेगा */}
+                        {showLiveDemo && (
+                            <div>
+                                {project.type === 'weather' && <WeatherDemo />}
+                                {project.type === 'todo' && <TodoDemo />}
+                                {project.type === 'portfolio' && (
+                                    <div className="bg-slate-800 p-3 rounded-lg text-center text-xs text-emerald-400 my-4">
+                                        🚀 आप अभी इसी मयंक के लाइव पोर्टफोलियो ऐप को ही एक्सपीरियंस कर रहे हैं!
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        <div className="mb-6 mt-2">
+                            <h4 className="text-xs font-semibold text-slate-400 mb-2">इस्तेमाल की गई तकनीक (Tech Used):</h4>
+                            <div className="flex flex-wrap gap-1.5">
+                                {project.tech.map((t, idx) => (
+                                    <span key={idx} className="text-[10px] bg-slate-800 text-sky-300 px-2 py-1 rounded-md border border-slate-700">
+                                        {t}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="flex gap-3">
+                            <button 
+                                onClick={() => setShowLiveDemo(!showLiveDemo)} 
+                                className="flex-1 bg-sky-500 hover:bg-sky-400 text-slate-950 text-center font-bold text-xs py-2.5 rounded-xl transition">
+                                {showLiveDemo ? 'Hide Demo ✖' : 'Live Demo 🚀'}
+                            </button>
+                            <a 
+                                href={project.githubUrl} 
+                                target="_blank" 
+                                className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-center font-bold text-xs py-2.5 rounded-xl border border-slate-700 transition flex items-center justify-center">
+                                GitHub Code 💻
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // 5. Projects Showcase Section
+        function Projects({ onOpenModal }) {
             const myProjects = [
                 {
+                    type: 'weather',
                     title: 'Live Weather App',
-                    desc: 'Fetch API का उपयोग करके किसी भी शहर का रियल-टाइम तापमान और मौसम अपडेट दिखाने वाला ऐप।',
-                    tech: ['HTML', 'CSS', 'JavaScript', 'Fetch API']
+                    desc: 'Fetch API का उपयोग करके रियल-टाइम तापमान और मौसम अपडेट दिखाने वाला ऐप।',
+                    fullDetails: 'यह ऐप OpenWeatherMap API से जुड़कर लाइव डेटा प्राप्त करता है। नीचे "Live Demo 🚀" पर क्लिक करके आप इसे यहीं चलाकर देख सकते हैं!',
+                    tech: ['HTML', 'CSS', 'JavaScript', 'Fetch API'],
+                    githubUrl: 'https://github.com/kumarmayank97513-afk/my-todo-app'
                 },
                 {
+                    type: 'todo',
                     title: 'To-Do List (LocalStorage)',
-                    desc: 'टास्क ऐड, डिलीट और ब्राउज़र लोकल स्टोरेज में स्थायी डेटा सेव करने वाला React To-Do ऐप।',
-                    tech: ['React.js', 'Tailwind CSS', 'LocalStorage']
+                    desc: 'ब्राउज़र लोकल स्टोरेज में स्थायी डेटा सेव करने वाला React To-Do ऐप।',
+                    fullDetails: 'इस ऐप में यूजर अपने रोजमर्रा के टास्क ऐड और डिलीट कर सकता है। नीचे "Live Demo 🚀" पर क्लिक करके नया टास्क जोड़कर देखें!',
+                    tech: ['React.js', 'Tailwind CSS', 'LocalStorage'],
+                    githubUrl: 'https://github.com/kumarmayank97513-afk/my-todo-app'
                 },
                 {
+                    type: 'portfolio',
                     title: 'MAYANK.DEV Portfolio',
                     desc: 'मेरा पर्सनल डेवलपर पोर्टफोलियो जो React कंपोनेंट्स और dynamic UI पर बना है।',
-                    tech: ['React.js', 'Tailwind CSS', 'GitHub Pages']
+                    fullDetails: 'यह एक फुली मॉड्यूलर और रिस्पॉन्सिव पोर्टफोलियो है जो React state, dynamic project modals, और form handling की क्षमता रखता है।',
+                    tech: ['React.js', 'Tailwind CSS', 'GitHub Pages'],
+                    githubUrl: 'https://github.com/kumarmayank97513-afk/my-todo-app'
                 }
             ];
 
@@ -105,14 +251,14 @@
                     <h2 className="text-xl font-bold text-sky-400 mb-6 text-center">Featured Projects</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {myProjects.map((p, index) => (
-                            <ProjectCard key={index} title={p.title} desc={p.desc} tech={p.tech} />
+                            <ProjectCard key={index} project={p} onOpenModal={onOpenModal} />
                         ))}
                     </div>
                 </section>
             );
         }
 
-        // 5. NEW: Contact Form Component with State
+        // 6. Contact Form Component
         function Contact() {
             const [formData, setFormData] = React.useState({ name: '', email: '', message: '' });
             const [submitted, setSubmitted] = React.useState(false);
@@ -168,14 +314,23 @@
             );
         }
 
-        // 6. Main App Component
+        // 7. Main App Component
         function MainApp() {
+            const [selectedProject, setSelectedProject] = React.useState(null);
+
             return (
                 <div className="pb-8">
                     <Hero />
                     <Skills />
-                    <Projects />
+                    <Projects onOpenModal={(project) => setSelectedProject(project)} />
                     <Contact />
+                    
+                    {/* Modal Window */}
+                    <ProjectModal 
+                        project={selectedProject} 
+                        onClose={() => setSelectedProject(null)} 
+                    />
+
                     <footer className="text-center text-xs text-slate-500 mt-6 border-t border-slate-900 pt-6">
                         © 2026 Mayank Kumar. Built with React & Tailwind CSS.
                     </footer>
